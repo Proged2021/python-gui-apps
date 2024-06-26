@@ -1,4 +1,5 @@
 import tkinter as tk
+import random
 
 # ↓↓↓ お約束のコード ↓↓↓
 window = tk.Tk()
@@ -23,12 +24,11 @@ def button_action():  # 関数の定義 ※ボタンが押されたときの動�
 
     label1.config(text=f"{"\n".join(name_list)}")
 
-    # name = []
-    # for line in sys.stdin.readlines():
-    #     name.append(line.rstrip())
-    # label1.config(tname)
 
-    # 　名前をリストに代入
+def random_action():
+    random.shuffle(name_list)
+    index = random.randint(0, len(name_list))
+    label2.config(text=name_list[index])
 
 
 # 入力フィールドの作成
@@ -42,6 +42,14 @@ button1.pack(pady=10)
 # 出力ラベルの作成
 label1 = tk.Label(window, text="", bg=bg_color, fg=fg_color)
 label1.pack(pady=10)
+
+# ボタンの作成
+button2 = tk.Button(window, text="ランダム選択", command=random_action)
+button2.pack(pady=10)
+
+# 出力ラベルの作成
+label2 = tk.Label(window, text="", bg=bg_color, fg=fg_color)
+label2.pack(pady=10)
 
 # ↓↓↓ お約束のコード ↓↓↓
 window.mainloop()
