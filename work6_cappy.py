@@ -25,7 +25,7 @@ class TicTacToe:
         self.current_player = "◯" if random.choice([True, False]) else "✕"
         self.buttons = []
         for widget in self.root.winfo_children():
-            if isinstance(widget, tk.Button):
+            if isinstance(widget, tk.Button) and widget.cget("text") != "リセット":
                 widget.destroy()
 
         self.create_board()
@@ -57,7 +57,7 @@ class TicTacToe:
     def player_move(self, index):
         if self.board[index] == "" and self.current_player == "◯":
             self.board[index] = "◯"
-            self.buttons[index].config(text="◯")
+            self.buttons[index].config(text="◯", fg="red")
             if self.check_winner("◯"):
                 self.status_label.config(text="あなたの勝ちです！")
                 self.disable_buttons()
@@ -70,7 +70,7 @@ class TicTacToe:
         for i in empty_indices:
             self.board[i] = "✕"
             if self.check_winner("✕"):
-                self.buttons[i].config(text="✕")
+                self.buttons[i].config(text="✕", fg="blue")
                 self.status_label.config(text="コンピュータの勝ちです！")
                 self.disable_buttons()
                 return
@@ -79,13 +79,13 @@ class TicTacToe:
             self.board[i] = "◯"
             if self.check_winner("◯"):
                 self.board[i] = "✕"
-                self.buttons[i].config(text="✕")
+                self.buttons[i].config(text="✕", fg="blue")
                 self.current_player = "◯"
                 return
             self.board[i] = ""
         move = random.choice(empty_indices)
         self.board[move] = "✕"
-        self.buttons[move].config(text="✕")
+        self.buttons[move].config(text="✕", fg="blue")
         if self.check_winner("✕"):
             self.status_label.config(text="コンピュータの勝ちです！")
             self.disable_buttons()
